@@ -1,0 +1,168 @@
+<div ng-controller="HomCtrl">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-offset-1 col-lg-10">
+                <h1>Books Manage </h1>
+                <div class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Choose Publisher
+                    <span class="caret"></span></button>
+                    <ul class="dropdown-menu">
+                        <li ng-repeat="p in publishers"><a ng-click="getBooksbyIdPub(p.idPub)">{{p.name}}</a></li>
+                    </ul>
+                </div>
+                <form class="navbar-form navbar-right">
+                    <input type="text" class="form-control" ng-model="search" placeholder="Search">
+                </form>
+                <table class="table">
+                    <!-- On rows -->
+                    <tr>
+                        <td>id</td>
+                        <td>name</td>
+                        <td>author</td>
+                        <td>ISBN</td>
+                        <td>Publisher ID</td>
+                        <td>
+                            <button class="btn btn-primary" ng-click="clearnBook()" data-toggle="modal" data-target="#myModal">Add</button>
+                            <button class="btn btn-primary" ng-click="refresh()">Refresh</button>
+                        </td>
+                    </tr>
+                    <!-- On cells (`td` or `th`) -->
+                    <tr  class="active" ng-repeat="b in books | filter:search">
+                        <td>{{b.id}}</td>
+                        <td>{{b.title}}</td>
+                        <td>{{b.author}}</td>
+                        <td>{{b.ISBN}}</td>
+                        <td>{{b.idPub}}</td>
+                        <td><button class="btn btn-info" ng-click="getOneBook(b.id)"  data-toggle="modal" data-target="#myModalUpdate">Edit</button> 
+                        | <button class="btn btn-success" ng-click="detailBook(b.id)" data-toggle="modal" data-target="#myModalDetail">Detail</button>
+                        | <button class="btn btn-danger" ng-click="deleteBook(b.id)">Delete</button></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal ADD -->
+    <div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Add A New Book</h4>
+        </div>
+        <div class="modal-body">
+            <div class="input-group">
+                <span class="input-group-addon" id="sizing-addon2">Title</span>
+                <input type="text" class="form-control" ng-model="book.title" placeholder="title" aria-describedby="sizing-addon2">
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="sizing-addon2">Author</span>
+                <input type="text" class="form-control" ng-model="book.author" placeholder="author" aria-describedby="sizing-addon2">
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="sizing-addon2">ISBN</span>
+                <input type="text" class="form-control" ng-model="book.ISBN" placeholder="ISBN" aria-describedby="sizing-addon2">
+            </div>
+            <div class="dropdown">
+                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">{{dropNotify}}
+                <span class="caret"></span></button>
+                <ul class="dropdown-menu">
+                    <li ng-repeat="p in publishers"><a ng-click="choosePub(p.name, p.idPub)">{{p.name}}</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-priary" ng-click="addBook()" data-dismiss="modal">Add</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+        </div>
+
+    </div>
+    </div>
+
+    <!-- Modal Update -->
+    <div id="myModalUpdate" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Update Book</h4>
+        </div>
+        <div class="modal-body">
+            <div class="input-group">
+                <span class="input-group-addon" id="sizing-addon2">Title</span>
+                <input type="text" class="form-control" ng-model="book.title" placeholder="title" aria-describedby="sizing-addon2">
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="sizing-addon2">Author</span>
+                <input type="text" class="form-control" ng-model="book.author" placeholder="author" aria-describedby="sizing-addon2">
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="sizing-addon2">ISBN</span>
+                <input type="text" class="form-control" ng-model="book.ISBN" placeholder="ISBN" aria-describedby="sizing-addon2">
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-priary" ng-click="updateBook()" data-dismiss="modal">Update</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+        </div>
+
+    </div>
+    </div>
+
+        <!-- Modal Detail -->
+    <div id="myModalDetail" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Detail Book</h4>
+        </div>
+        <div class="modal-body">
+            <div class="input-group">
+                <span class="input-group-addon" id="sizing-addon2">Title</span>
+                <input type="text" class="form-control" ng-model="book.title" placeholder="title" aria-describedby="sizing-addon2">
+            </div>
+            <br />
+            <div class="input-group">
+                <span class="input-group-addon" id="sizing-addon2">Author</span>
+                <input type="text" class="form-control" ng-model="book.author" placeholder="author" aria-describedby="sizing-addon2">
+            </div>
+            <br />
+            <div class="input-group">
+                <span class="input-group-addon" id="sizing-addon2">ISBN</span>
+                <input type="text" class="form-control" ng-model="book.ISBN" placeholder="ISBN" aria-describedby="sizing-addon2">
+            </div>
+            <br />
+            <h4>Publisher's Book</h4>
+            <div class="input-group">
+                <span class="input-group-addon" id="sizing-addon2">Publisher</span>
+                <input type="text" class="form-control" ng-model="publisher.name" placeholder="Publisher" aria-describedby="sizing-addon2">
+            </div>
+            <br />
+            <div class="input-group">
+                <span class="input-group-addon" id="sizing-addon2">Address</span>
+                <input type="text" class="form-control" ng-model="publisher.address" placeholder="Address" aria-describedby="sizing-addon2">
+            </div>
+            <br />
+            <div class="input-group">
+                <span class="input-group-addon" id="sizing-addon2">Phone</span>
+                <input type="text" class="form-control" ng-model="publisher.phone" placeholder="Phone" aria-describedby="sizing-addon2">
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+        </div>
+
+    </div>
+    </div>
+
+</div>

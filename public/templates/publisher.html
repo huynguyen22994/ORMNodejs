@@ -1,0 +1,95 @@
+<div ng-controller="PublisherCtrl">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-offset-1 col-lg-10">
+                <h1>Publisher Manage</h1>
+                 <table class="table">
+                    <!-- On rows -->
+                    <tr>
+                        <td>id</td>
+                        <td>name</td>
+                        <td>address</td>
+                        <td>Phone</td>
+                        <td><button class="btn btn-primary" ng-click="clearnBook()" data-toggle="modal" data-target="#myModalAdd">Add</button></td>
+                    </tr>
+                    <!-- On cells (`td` or `th`) -->
+                    <tr  class="active" ng-repeat="p in publishers">
+                        <td>{{p.idPub}}</td>
+                        <td>{{p.name}}</td>
+                        <td>{{p.address}}</td>
+                        <td>{{p.phone}}</td>
+                        <td><button class="btn btn-info" ng-click="getOnePublisher(p.idPub)"  data-toggle="modal" data-target="#myModalUpdate">Edit</button> 
+                        | <button class="btn btn-danger" ng-click="deletePublisher(p.idPub)">Delete</button></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal ADD -->
+    <div id="myModalAdd" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Add A New Publisher</h4>
+        </div>
+        <div class="modal-body">
+            <div class="input-group">
+                <span class="input-group-addon" id="sizing-addon2">Name</span>
+                <input type="text" class="form-control" ng-model="publisher.name" placeholder="title" aria-describedby="sizing-addon2">
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="sizing-addon2">Adress</span>
+                <input type="text" class="form-control" ng-model="publisher.address" placeholder="author" aria-describedby="sizing-addon2">
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="sizing-addon2">Phone</span>
+                <input type="text" class="form-control" ng-model="publisher.phone" placeholder="ISBN" aria-describedby="sizing-addon2">
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-priary" ng-click="addPublisher()" data-dismiss="modal">Add</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+        </div>
+
+    </div>
+    </div>
+
+        <!-- Modal Update -->
+    <div id="myModalUpdate" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Update Publisher</h4>
+        </div>
+        <div class="modal-body">
+            <div class="input-group">
+                <span class="input-group-addon" id="sizing-addon2">Name</span>
+                <input type="text" class="form-control" ng-model="publisher.name" placeholder="title" aria-describedby="sizing-addon2">
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="sizing-addon2">Adress</span>
+                <input type="text" class="form-control" ng-model="publisher.address" placeholder="author" aria-describedby="sizing-addon2">
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="sizing-addon2">Phone</span>
+                <input type="text" class="form-control" ng-model="publisher.phone" placeholder="ISBN" aria-describedby="sizing-addon2">
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-priary" ng-click="updatePublisher()" data-dismiss="modal">Update</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+        </div>
+
+    </div>
+    </div>
+
+</div>
