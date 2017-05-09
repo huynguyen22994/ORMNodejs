@@ -40,6 +40,11 @@ app.use('/', books);
 app.use('/', publishers);
 app.use('/', users);
 
+var options = {
+    swaggerUi: '/swagger.json',
+    controllers: __dirname + '/app/controllers'
+};
+
 swagger.initializeMiddleware(swaggerObj, (middleware) => {
     app.use(middleware.swaggerMetadata());
     app.use(middleware.swaggerSecurity({
@@ -47,6 +52,7 @@ swagger.initializeMiddleware(swaggerObj, (middleware) => {
         // Do real stuff here
         }
     }));
+    app.use(middleware.swaggerRouter(options));
     app.use(middleware.swaggerUi());
      // Serve the Swagger documents and Swagger UI
     //   http://localhost:3000/docs => Swagger UI
@@ -55,6 +61,7 @@ swagger.initializeMiddleware(swaggerObj, (middleware) => {
 
 http.listen(app.get('port'),() => {
     console.log(`Server is running on port ${app.get('port')}`);
+    console.log(`Docs Apis is running on: ${app.get('port')}/docs`);
 });
 
 module.exports = app;

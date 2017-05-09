@@ -1,6 +1,44 @@
 'use strict';
 
-app.controller('HomCtrl', ['$scope', 'Database', '$window', function($scope, Database) {
+app.controller('HomCtrl', ['$scope', 'Database', '$window', '$http', function($scope, Database, $http) {
+
+   Database.test.POST().then(function(value){
+        console.log(value);
+    },
+    function(err){
+        console.log(err);
+    })
+
+        // Database.test.GET().then(function(value){
+        //     console.log(value);
+        // },
+        // function(err){
+        //     console.log(err);
+        // });
+
+        // Database.test.DELETE().then(function(value){
+        //     console.log(value);
+        // },
+        // function(err){
+        //     console.log(err);
+        // });
+
+        // Database.test.PUT().then(function(value){
+        //     console.log(value);
+        // },
+        // function(err){
+        //     console.log(err);
+        // })
+
+
+        // Database.test.TEST().then(function(value){
+        //     console.log(value);
+        // },
+        // function(err){
+        //     console.log(err);
+        // })
+
+
 
     $scope.choosePub = (name, id) => {
         $scope.dropNotify = name;

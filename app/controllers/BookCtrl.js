@@ -1,8 +1,13 @@
 var Book = require('../models/Books');
 var Publisher = require('../models/Publisher');
 
-module.exports.getBooks = () => {
-   return Book.all();
+module.exports.getBooks = (req, res) => {
+  console.log('fsdfsdf');
+   return Book.findAndCountAll().then(function(books) {
+    console.log(books);
+    var Books = JSON.stringify(books.rows);
+    res.end(Books);
+   })
 };
 
 module.exports.insertBook = (book, callback) => {

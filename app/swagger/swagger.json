@@ -16,74 +16,48 @@
     "application/json"
   ],
   "paths": {
-    "/products": {
+    "/books": {
       "get": {
         "summary": "Product Types",
-        "description": "The Products endpoint returns information about the *Uber* products\noffered at a given location. The response includes the display name\nand other details about each product, and lists the products in the\nproper display order.\n",
-        "parameters": [
-          {
-            "name": "latitude",
-            "in": "query",
-            "description": "Latitude component of location.",
-            "required": true,
-            "type": "number",
-            "format": "double"
-          },
-          {
-            "name": "longitude",
-            "in": "query",
-            "description": "Longitude component of location.",
-            "required": true,
-            "type": "number",
-            "format": "double"
-          }
-        ],
-        "tags": [
-          "Products"
-        ],
+        "description": "test",
+        "operationId": "getBooks",
         "responses": {
-          "200": {
-            "description": "An array of products",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/Product"
-              }
-            }
-          },
-          "default": {
-            "description": "Unexpected error",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          }
-        }
+                "200": {
+                    "description": "template file",
+                    "schema": {
+                        "$ref": "#/definitions/Book"
+                    }
+                },
+                "default": {
+                    "description": "unexpected error",
+                    "schema": {
+                        "$ref": "#/definitions/Error"
+                    }
+                }
+            },
+        "x-swagger-router-controller": "BookCtrl"
       }
     }
   },
   "definitions": {
-    "Product": {
+    "Book": {
       "type": "object",
       "properties": {
-        "product_id": {
-          "type": "string",
+        "id": {
+          "type": "integer",
           "description": "Unique identifier representing a specific product for a given latitude & longitude. For example, uberX in San Francisco will have a different product_id than uberX in Los Angeles."
         },
-        "description": {
+        "title": {
           "type": "string",
           "description": "Description of product."
         },
-        "display_name": {
+        "author": {
           "type": "string",
           "description": "Display name of product."
         },
-        "capacity": {
+        "ISBN": {
           "type": "string",
           "description": "Capacity of product. For example, 4 people."
-        },
-        "image": {
-          "type": "string",
-          "description": "Image URL representing the product."
         }
       }
     },
